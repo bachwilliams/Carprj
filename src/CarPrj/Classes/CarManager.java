@@ -12,7 +12,7 @@ public class CarManager {
 	public static void main(String[] args) {
 		// Add some cars to the ArrayList
 		System.out.println("du");
-		System.out.printle("new")
+		System.out.println("Vua lam xong");
 	}
 
 }
