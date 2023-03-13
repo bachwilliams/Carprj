@@ -20,8 +20,7 @@ public class CarManager {
 	cars.add(new Car("C04",new Brand(), "white", "F12348", "E12348" ));
 	cars.add(new Car("C05",new Brand(), "pinkk", "F12349", "E12349" ));
 	//them method de test chuc nang o day
-
-	
+		System.out.println("inter");
 	}
 
 }
