@@ -1,14 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package CarPrj.Classes.Com;
 
-/**
- *
- * @author bachl
- */
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Menu {
-	
+    public int int_getChoice(ArrayList options) {
+        for (int i = 0; i < options.size(); i++) {
+            System.out.println((i + 1) + "-" + options.get(i));
+        }
+        System.out.print("Enter your number :");
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();	
 }

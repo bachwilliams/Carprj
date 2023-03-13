@@ -13,7 +13,7 @@ public class BrandList extends ArrayList<Brand>{
 	}
 
 	public boolean loadFromFile() {
-	  return true;
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
 //	public boolean saveToFile(String){
@@ -21,22 +21,26 @@ public class BrandList extends ArrayList<Brand>{
 //	}
 
 	public int searchID(String ID){
-		return 0;
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
 	public Brand getUserChoice(){
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 		
 	}
 
 	public void addBrand(){
 
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
 	public void updateBrand(){
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
 	}
 
 	public void listBrands(){
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
 	}
 
