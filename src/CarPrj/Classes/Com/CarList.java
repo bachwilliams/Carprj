@@ -2,6 +2,8 @@ package CarPrj.Classes.Com;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CarList extends ArrayList<Car> {
 
@@ -88,11 +90,91 @@ public class CarList extends ArrayList<Car> {
 				System.out.println("Color:");
 				sc = new Scanner(System.in);
 				color = sc.nextLine();
-			}else{
+			} else {
 				colorBlank = false;
 			}
 		} while (colorBlank);
-		
+		// frame ID
+		// frameID duplicate
+		sc = new Scanner(System.in);
+		System.out.println("format of frame ID 'F0000' ");
+		System.out.println("frameID: ");
+		frameID = sc.nextLine();
+		String regex = "^F\\d{5}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(frameID);
+		boolean frameIDisblank = true;
+		do {
+			if (fIDDuplicate(frameID)) {
+				System.out.println("This ID is already available. Please re-Enter");
+				System.out.println("frameID:");
+				sc = new Scanner(System.in);
+				frameID = sc.nextLine();
+			} else if (matcher.matches() == false) {
+				System.out.println("The ID does not match the format. Please re-enter");
+				System.out.println("frameID:");
+				sc = new Scanner(System.in);
+				frameID = sc.nextLine();
+			} else {
+				frameIDisblank = false;
+			}
+		} while (frameIDisblank);
+		//engineID
+		sc = new Scanner(System.in);
+		System.out.println("format of engine ID 'E0000' ");
+		System.out.println("engineID: ");
+		engineID = sc.nextLine();
+		String regex2 = "^E\\d{5}$";
+		Pattern pattern2 = Pattern.compile(regex2);
+		Matcher matcher2 = pattern2.matcher(engineID);
+		boolean engineIDisblank = true;
+		do {
+			if (eIDDuplicate(engineID)) {
+				System.out.println("frame is blank. Please re-enter");
+			System.out.println("engineID:");
+			sc = new Scanner(System.in);
+			frameID = sc.nextLine();
+
+			} else if (matcher2.matches() == false) {
+				System.out.println("The ID does not match the format. Please re-enter");
+			System.out.println("engineID:");
+			sc = new Scanner(System.in);
+			frameID = sc.nextLine();
+			} else {
+				engineIDisblank = false;
+			}
+		} while (frameIDisblank);
+	
+        Car m = new Car(carID, brand, color, frameID, engineID);
+
+        this.add(m);
+
+        System.out.println("The new car has been added.");
+	}
+
+	public boolean fIDDuplicate(String check) {
+		boolean frameIDDub = false;
+		for (int i = 0; i < this.size(); i++) {
+			if (this.get(i).getFrameID().equals(check)) {
+				frameIDDub = true;
+			} else {
+				frameIDDub = false;
+			}
+		}
+		return frameIDDub;
+	}
+
+	//engine ID	
+	public boolean eIDDuplicate(String check) {
+		boolean engineIDDub = false;
+		for (int i = 0; i < this.size(); i++) {
+			if (this.get(i).getEngineID().equals(check)) {
+				engineIDDub = true;
+			} else {
+				engineIDDub = false;
+			}
+		}
+		return engineIDDub;
 	}
 
 	public void printBasedBrandName() {
