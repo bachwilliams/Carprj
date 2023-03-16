@@ -1,6 +1,7 @@
 package CarPrj.Classes.Com;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CarList extends ArrayList<Car> {
 
@@ -41,9 +42,9 @@ public class CarList extends ArrayList<Car> {
 	}
 
 	public void printBasedBrandName(){
-
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter a brand name to print all element ò brand: ");
+        }
 
 	public boolean removeCar(){
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
