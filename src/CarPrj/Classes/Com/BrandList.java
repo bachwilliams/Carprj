@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class BrandList extends ArrayList<Brand>{
 
-	public void loadFromFile(String ejava_learningOOPinJavabrandstxt) {
+	public void loadFromFile(String e) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
@@ -12,7 +12,7 @@ public class BrandList extends ArrayList<Brand>{
 		super();
 	}
 
-	public boolean loadFromFile() {
+	public boolean saveToFile(String e) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 

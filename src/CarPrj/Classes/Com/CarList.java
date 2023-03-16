@@ -9,6 +9,7 @@ public class CarList extends ArrayList<Car> {
 
 	BrandList brandList;
 
+	
 	public CarList(BrandList bList) {
 
 	}
@@ -56,10 +57,11 @@ public class CarList extends ArrayList<Car> {
 	public void addCar() {
 		Scanner sc = new Scanner(System.in);
 		String carID;
-		Brand brand;
+		Brand b;
 		String color;
 		String frameID;
 		String engineID;
+		//CarID
 		System.out.println("CarID: ");
 		carID = sc.nextLine();
 		boolean carIDDub = false;
@@ -77,7 +79,9 @@ public class CarList extends ArrayList<Car> {
 
 			}
 		} while (carIDDub);
-		// menu band
+		// menu brand
+		System.out.println("Enter new Brand ID: ");
+		b = (Brand)Menu.ret_getChoice(brandList);
 		// enter color
 		sc = new Scanner(System.in);
 		System.out.println("Color:");
@@ -145,14 +149,14 @@ public class CarList extends ArrayList<Car> {
 			}
 		} while (frameIDisblank);
 	
-        Car m = new Car(carID, brand, color, frameID, engineID);
+        Car m = new Car(carID, b, color, frameID, engineID);
 
         this.add(m);
 
         System.out.println("The new car has been added.");
 	}
 
-	public boolean fIDDuplicate(String check) {
+	private boolean fIDDuplicate(String check) {
 		boolean frameIDDub = false;
 		for (int i = 0; i < this.size(); i++) {
 			if (this.get(i).getFrameID().equals(check)) {
@@ -165,7 +169,7 @@ public class CarList extends ArrayList<Car> {
 	}
 
 	//engine ID	
-	public boolean eIDDuplicate(String check) {
+	private boolean eIDDuplicate(String check) {
 		boolean engineIDDub = false;
 		for (int i = 0; i < this.size(); i++) {
 			if (this.get(i).getEngineID().equals(check)) {
