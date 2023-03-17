@@ -1,35 +1,78 @@
 package CarPrj.Classes.Com;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class BrandList extends ArrayList<Brand>{
 
-	public void loadFromFile(String e) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
+public class BrandList extends ArrayList<Brand> {
 
-	public BrandList() {
-		super();
-	}
+    public BrandList() {
+        super();
+    }
 
-	public boolean saveToFile(String e) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
+    public boolean loadFromFile(String filename) throws IOException {
 
-//	public boolean saveToFile(String){
-//
-//	}
+        FileReader fr = null;
 
-	public int searchID(String ID){
-            return 0;
-           
-	}
+        File f = new File(filename);
+        if (!f.exists()) {
+            System.out.println("Failed");
+            return false;
+        } else {
+            fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String s;
+            while ((s = br.readLine()) != null) {
+                StringTokenizer st = new StringTokenizer(s, ",:");
+                String newID = st.nextToken().toUpperCase();
+                String newbrandname = st.nextToken().toUpperCase();
+                String newsoundbrand = st.nextToken().toUpperCase();
+                double newprice = Double.parseDouble(st.nextToken());
 
-	public Brand getUserChoice(){
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-		
-	}
+                Brand b = new Brand(newID, newbrandname, newsoundbrand, newprice);
+                this.add(b);
+            }
+            fr.close();
+            br.close();
+        }
+        return true;
+    }
+
+    private int find(String ID) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getBrandID().equals(ID)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int searchID(String s) {
+        int k;
+        k = find(s);
+        System.out.println(k);
+        if (k >= 0) {
+            System.out.print(this.get(k).getBrandID() + ", " + this.get(k).getBrandName() + ", " + this.get(k).getSoundBrand() + ": " + this.get(k).getPrice());
+        } else if (k < 0) {
+            System.out.println("Not Exist!");
+        }
+        return -1;
+    }
+    
+    public Brand getUserChoice(){
+        Menu mnu = new Menu();
+        return (Brand)mnu.ret_getChoice(this);
+    }
 
     public void addBrand() {
         Scanner sc = new Scanner(System.in);
@@ -44,7 +87,6 @@ public class BrandList extends ArrayList<Brand>{
 
         do {
             System.out.printf("Enter a new brand:");
-            sc = new Scanner(System.in);
             newID = sc.nextLine().toUpperCase();
             checkID = find(newID);
             if (checkID >= 0) {
@@ -54,7 +96,6 @@ public class BrandList extends ArrayList<Brand>{
 
         do {
             System.out.print("Enter the brand name:");
-            sc = new Scanner(System.in);
             newBrandname = sc.nextLine().toUpperCase();
             s = newBrandname;
             if (s == null) {
@@ -66,7 +107,6 @@ public class BrandList extends ArrayList<Brand>{
 
         do {
             System.out.print("Enter the sound manufacturer:");
-            sc = new Scanner(System.in);
             newSoundbrand = sc.nextLine().toUpperCase();
             s = newSoundbrand;
             if (s == null) {
@@ -78,7 +118,6 @@ public class BrandList extends ArrayList<Brand>{
 
         do {
             System.out.print("Enter the price:");
-            sc = new Scanner(System.in);
             price = sc.nextDouble();
             d = price;
             if (d <= 0) {
@@ -90,10 +129,9 @@ public class BrandList extends ArrayList<Brand>{
         Brand brand = new Brand(newID, newBrandname, newSoundbrand, price);
         this.add(brand);
         System.out.println("New brand is added !");
-
     }
 
-	   public void updateBrand() {
+    public void updateBrand() {
         Scanner scanner = new Scanner(System.in);
         int k;
         String id, newbrand, newmanu;
@@ -128,9 +166,9 @@ public class BrandList extends ArrayList<Brand>{
             } while (price <= 0);
             for (int i = 0; i < this.size(); i++) {
                 if (this.get(i).getBrandID().contains(id)) {
-                    this.get(i).getBrandName();
-                    this.get(i).getSoundBrand();
-                    this.get(i).getPrice();
+                    this.get(i).setBrandName(newbrand);
+                    this.get(i).setSoundBrand(newmanu);
+                    this.get(i).setPrice(price);
                     System.out.println("Update succesful!");
                 }
             }
@@ -138,13 +176,40 @@ public class BrandList extends ArrayList<Brand>{
         } else {
             System.out.println("The ID does not exist !!!");
         }
-
     }
 
-	   public void listBrands() {
+    public void listBrands() {
         for (int i = 0; i < this.size(); i++) {
-            System.out.println(this.get(i).getBrandID() + ", " + this.get(i).getBrandName() + ", " + this.get(i).getSoundBrand()+ ": " + this.get(i).getPrice());
+            System.out.println(this.get(i).getBrandID() + ", " + this.get(i).getBrandName() + ", " + this.get(i).getSoundBrand() + ": " + this.get(i).getPrice());
         }
+    }
+
+    public boolean saveToFile(String fname) {
+
+        FileWriter fileWriter = null;
+        boolean c = false;
+        File f = new File(fname);
+
+        try {
+            if (f.isFile() && f.canWrite()) {
+                fileWriter = new FileWriter(f);
+                PrintWriter pw = new PrintWriter(fileWriter);
+                for (int i = 0; i < this.size(); i++) {
+                    pw.println(this.get(i));
+                }
+                c = true;
+                System.out.println("Save successfull!");
+                fileWriter.close();
+                pw.close();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            c = false;
+        }
+        return c;
+
     }
 
 }
