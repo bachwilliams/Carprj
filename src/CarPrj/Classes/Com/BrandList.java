@@ -141,9 +141,10 @@ public class BrandList extends ArrayList<Brand>{
 
     }
 
-	public void listBrands(){
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
-	}
+	   public void listBrands() {
+        for (int i = 0; i < this.size(); i++) {
+            System.out.println(this.get(i).getBrandID() + ", " + this.get(i).getBrandName() + ", " + this.get(i).getSoundBrand()+ ": " + this.get(i).getPrice());
+        }
+    }
 
 }
