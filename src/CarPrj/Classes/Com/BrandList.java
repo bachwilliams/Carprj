@@ -1,5 +1,6 @@
 package CarPrj.Classes.Com;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,7 +47,7 @@ public class BrandList extends ArrayList<Brand>{
             System.out.printf("Enter a new brand:");
             sc = new Scanner(System.in);
             newID = sc.nextLine().toUpperCase();
-            checkID = find(newID);
+            checkID = searchID(newID);
             if (checkID >= 0) {
                 System.out.print("Brand ID is duplicated:");
             }
@@ -100,7 +101,7 @@ public class BrandList extends ArrayList<Brand>{
         double price;
         System.out.print("Enter the ID you need update the brand:");
         id = scanner.nextLine().toUpperCase();
-        k = find(id);
+        k = searchID(id);
         if (k >= 0) {
             do {
                 System.out.print("Enter the new brand you want to update:");
