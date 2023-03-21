@@ -12,85 +12,88 @@ import java.nio.file.Paths;
 
 public class CarList extends ArrayList<Car> {
 
-	private String carID, color, frameID, engineID;
-    private Brand brand;
-    Menu menu = new Menu();
-    Scanner scanner = new Scanner(System.in);
-    BrandList brandList;
-    BufferedReader br;
-    String line;
-    String[] arr;
-
-    //Initialize a list based on the existed brand list
-    public CarList(BrandList bList) {
-        brandList = bList;
-    }
-
-    public boolean loadFromFile(String fileName) throws IOException {
-        try {
-            br = new BufferedReader(new FileReader(fileName));
-		System.out.println("check1");
-            line = br.readLine();
-            while (line != null) {
-		System.out.println("check2");
-                arr = line.split(",");
-                carID = arr[0].trim();
-		System.out.println("check3");
-                brand = brandList.get(brandList.searchID(arr[1].trim()));
-		System.out.println("check4");
-                color = arr[2].trim();
-                frameID = arr[3].trim();
-                engineID = arr[4].trim();
-		System.out.println("check5");
-                this.add(new Car(carID, brand, color, frameID, engineID));
-		System.out.println("check6");
-                line = br.readLine();
-            }
-            br.close();
-            return true;
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found !");
-        }
-        return false;
-    }
+//	Menu menu = new Menu();
+//	Scanner scanner = new Scanner(System.in);
 //	BrandList brandList;
 //
+//	//Initialize a list based on the existed brand list
 //	public CarList(BrandList bList) {
-//
+//		brandList = bList;
 //	}
 //
-//	public boolean loadFromFile(String filename) throws IOException {
-//		FileReader fr = null;
-//		File f = new File(filename);
-//		if (!f.exists()) {
-//			System.out.println("Failed");
-//			return false;
-//		} else {
-//			fr = new FileReader(f);
-//			BufferedReader br = new BufferedReader(fr);
-//			String line;
-//			while ((line = br.readLine()) != null) {
-//				line = line.trim();
-//				if (line.length() > 0) {
-//					StringTokenizer stk = new StringTokenizer(line, ",");
-//					String carID = stk.nextToken().trim();
-//					String brandID = stk.nextToken().trim();
-//					String color = stk.nextToken().trim();
-//					String frameID = stk.nextToken().trim();
-//					String engineID = stk.nextToken().trim();
-//					int pos = brandList.find(brandID);
-//					if (pos != -1) {
-//						Brand b = brandList.get(pos);
-//						Car newCar = new Car(carID, b, color, frameID, engineID);
-//						this.add(newCar);
-//					} else {
-//						System.out.println("Brand with ID " + brandID + " not found in the list.");
-//					}
-//				}
+//	public boolean loadFromFile(String fileName) throws IOException {
+//		String carID, color, frameID, engineID;
+//		Brand brand;
+//		BufferedReader br;
+//		String line;
+//		String[] arr;
+//		try {
+//			br = new BufferedReader(new FileReader(fileName));
+//			System.out.println("check1");
+//			line = br.readLine();
+//			while (line != null) {
+//				System.out.println("check2");
+//				arr = line.split(",");
+//				carID = arr[0].trim();
+//				System.out.println("check3");
+//				brand = brandList.get(brandList.searchID(arr[1].trim()));
+//				System.out.println("check4");
+//				color = arr[2].trim();
+//				frameID = arr[3].trim();
+//				engineID = arr[4].trim();
+//				System.out.println("check5");
+//				this.add(new Car(carID, brand, color, frameID, engineID));
+//				System.out.println("check6");
+//				line = br.readLine();
 //			}
+//			br.close();
+//			return true;
+//		} catch (FileNotFoundException e) {
+//			System.out.println("File not found !");
 //		}
-//		return true;
+//		return false;
 //	}
+	private BrandList brandList;
+
+	public CarList() {
+		super();
+	}
+
+	public CarList(BrandList bList) {
+		this.brandList = bList;
+	}
+
+//	public boolean loadFromFile(String filename) throws IOException {
+//	
+//	}
+	public boolean loadFromFile(String filename) {
+        File f = new File(filename);
+        if (!f.exists()) {
+            return false;
+        } else {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(f));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(",");
+                    String carID = parts[0];
+                    String brandID = parts[1];
+                    String color = parts[2];
+                    String frameID = parts[3];
+                    String engineID = parts[4];
+                    int pos = brandList.searchID(brandID);
+                    Brand brand = brandList.get(pos);
+                    Car car = new Car(carID, brand, color, frameID, engineID);
+                    this.add(car);
+                }
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+    }
 
 	public boolean saveToFile(String a) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -100,7 +103,7 @@ public class CarList extends ArrayList<Car> {
 	public int searchID(String carID) {
 		int N = this.size();
 		for (int i = 0; i < N; i++) {
-			if (this.get(i).getCarID() == carID) {
+			if (this.get(i).getCarID().equalsIgnoreCase(carID.trim()) ) {
 				return i;
 			}
 		}
@@ -187,11 +190,13 @@ public class CarList extends ArrayList<Car> {
 				System.out.println("frameID:");
 				sc = new Scanner(System.in);
 				frameID = sc.nextLine();
+				fIDDuplicate(frameID);
 			} else if (matcher.matches() == false) {
 				System.out.println("The ID does not match the format. Please re-enter");
 				System.out.println("frameID:");
 				sc = new Scanner(System.in);
 				frameID = sc.nextLine();
+				matcher.matches();
 			} else {
 				frameIDisblank = false;
 			}
@@ -258,26 +263,35 @@ public class CarList extends ArrayList<Car> {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a brand name to print all element of brand: ");
 		String brand = sc.nextLine().toUpperCase();
-		int count =0;
-		for(int i =0; i<this.size(); i++){
-			if(this.get(i).getBrand().getBrandID().contains(brand)){
-				System.out.println(this.get(i).getCarID()+", "+this.get(i).getBrand().getBrandID()+", "+ this.get(i).getFrameID()+", "+ this.get(i).getEngineID());
+		int count = 0;
+		for (int i = 0; i < this.size(); i++) {
+			if (this.get(i).getBrand().getBrandID().contains(brand)) {
+				System.out.println(this.get(i).getCarID() + ", " + this.get(i).getBrand().getBrandID() + ", " + this.get(i).getFrameID() + ", " + this.get(i).getEngineID());
 				count++;
 			}
 		}
-		if(count == 0){
+		if (count == 0) {
 			System.out.println("No car is detected!");
 		}
 	}
 
 	public boolean removeCar() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+		System.out.println("Enter ID of the car you want to remove: ");
+		Scanner sc1 = new Scanner(System.in);
+		String carID = sc1.nextLine();
+		int pos = searchID(carID);
+		System.out.println(pos);
+		if (pos < 0) {
+			System.out.println("No car detected");
+			return false;
+		} else {
+			this.remove(pos);
+		}
+		return true;
 	}
 
 	public boolean updateCar() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+		return true;
 	}
 
 	public void listCars() {

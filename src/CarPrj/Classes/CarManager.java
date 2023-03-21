@@ -34,6 +34,7 @@ public class CarManager {
 
 		BrandList blist = new BrandList();
 		String projectPath = System.getProperty("user.dir");
+		System.out.println(projectPath);
 		try{
 			blist.loadFromFile(projectPath + "\\src\\CarPrj\\Brands.txt");
 		}catch(Exception e){}
