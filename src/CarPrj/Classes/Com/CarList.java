@@ -28,7 +28,6 @@ public class CarList extends ArrayList<Car> {
 			fr = new FileReader(f);
 			BufferedReader br = new BufferedReader(fr);
 			String line;
-			Path path = Paths.get(filename);
 			while ((line = br.readLine()) != null) {
 				line = line.trim();
 				if (line.length() > 0) {
