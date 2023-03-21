@@ -55,14 +55,11 @@ public class BrandList extends ArrayList<Brand> {
 		return -1;
 	}
 
-	public int searchID(String s) {
-		int k;
-		k = find(s);
-		System.out.println(k);
-		if (k >= 0) {
-			System.out.print(this.get(k).getBrandID() + ", " + this.get(k).getBrandName() + ", " + this.get(k).getSoundBrand() + ": " + this.get(k).getPrice());
-		} else if (k < 0) {
-			System.out.println("Not Exist!");
+	public int searchID(String ID) {
+		for (int i = 0; i < this.size(); i++) {
+			if (this.get(i).getBrandID().equalsIgnoreCase(ID.trim())) {
+				return i;
+			}
 		}
 		return -1;
 	}
