@@ -1,11 +1,12 @@
 package CarPrj.Classes.Com;
 
 public class Car {
+
 	private String carID;
-	private	Brand brand;
+	private Brand brand;
 	private String color;
-	private String frameID;	
-	private	String engineID;
+	private String frameID;
+	private String engineID;
 
 	public Car() {
 	}
@@ -60,7 +61,11 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return super.toString(); //To change body of generated methods, choose Tools | Templates.
+		return carID + ", " + brand.getBrandID() + ", " + ", " + color + ", " + frameID + ", " + engineID;
 	}
-	
+
+	public String screenString() {
+		return brand.getBrandID() + ", \n, " + carID + ", " + color + ", " + frameID + ", " + engineID;
+	}
+
 }
