@@ -33,13 +33,15 @@ public class CarManager {
 		options.add("Exit");
 
 		BrandList blist = new BrandList();
+		String projectPath = System.getProperty("user.dir");
+		System.out.println(projectPath);
 		try{
-			blist.loadFromFile("D:\\Project-java\\Carprj\\src\\CarPrj\\Brands.txt");
+			blist.loadFromFile(projectPath + "\\src\\CarPrj\\Brands.txt");
 			System.out.println("Done brand");
 		}catch(Exception e){}
 		CarList clist = new CarList(blist);
 		try {
-			clist.loadFromFile("D:\\Project-java\\Carprj\\src\\CarPrj\\Cars.txt");
+			clist.loadFromFile(projectPath+"\\src\\CarPrj\\Cars.txt");
 			System.out.println("Done car");
 		} catch (Exception e) {
 			System.out.println("not done car");	
