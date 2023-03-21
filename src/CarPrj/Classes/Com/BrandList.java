@@ -193,7 +193,7 @@ public class BrandList extends ArrayList<Brand> {
 				fileWriter = new FileWriter(f);
 				PrintWriter pw = new PrintWriter(fileWriter);
 				for (int i = 0; i < this.size(); i++) {
-					pw.println(this.get(i));
+					pw.println(this.get(i).toString());
 				}
 				c = true;
 				System.out.println("Save successfull!");

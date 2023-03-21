@@ -3,7 +3,8 @@ package CarPrj.Classes.Com;
 /**
  */
 public class Brand {
-	private String brandID;	
+
+	private String brandID;
 	private String brandName;
 	private String soundBrand;
 	private double price;
@@ -52,8 +53,7 @@ public class Brand {
 
 	@Override
 	public String toString() {
-		return super.toString(); //To change body of generated methods, choose Tools | Templates.
+		return brandID + ", " + brandName + ", " + soundBrand + ": " + price;
 	}
-	
 
 }

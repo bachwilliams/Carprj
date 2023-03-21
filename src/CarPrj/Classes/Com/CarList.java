@@ -214,8 +214,19 @@ public class CarList extends ArrayList<Car> {
 	}
 
 	public void printBasedBrandName() {
-
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter a brand name to print all element of brand: ");
+		String brand = sc.nextLine().toUpperCase();
+		int count =0;
+		for(int i =0; i<this.size(); i++){
+			if(this.get(i).getBrand().getBrandID().contains(brand)){
+				System.out.println(this.get(i).getCarID()+", "+this.get(i).getBrand().getBrandID()+", "+ this.get(i).getFrameID()+", "+ this.get(i).getEngineID());
+				count++;
+			}
+		}
+		if(count == 0){
+			System.out.println("No car is detected!");
+		}
 	}
 
 	public boolean removeCar() {
