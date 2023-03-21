@@ -67,33 +67,33 @@ public class CarList extends ArrayList<Car> {
 //	
 //	}
 	public boolean loadFromFile(String filename) {
-        File f = new File(filename);
-        if (!f.exists()) {
-            return false;
-        } else {
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(f));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    String carID = parts[0];
-                    String brandID = parts[1];
-                    String color = parts[2];
-                    String frameID = parts[3];
-                    String engineID = parts[4];
-                    int pos = brandList.searchID(brandID);
-                    Brand brand = brandList.get(pos);
-                    Car car = new Car(carID, brand, color, frameID, engineID);
-                    this.add(car);
-                }
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
-            return true;
-        }
-    }
+		File f = new File(filename);
+		if (!f.exists()) {
+			return false;
+		} else {
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(f));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					String[] parts = line.split(",");
+					String carID = parts[0];
+					String brandID = parts[1];
+					String color = parts[2];
+					String frameID = parts[3];
+					String engineID = parts[4];
+					int pos = brandList.searchID(brandID);
+					Brand brand = brandList.get(pos);
+					Car car = new Car(carID, brand, color, frameID, engineID);
+					this.add(car);
+				}
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
+	}
 
 	public boolean saveToFile(String a) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -103,7 +103,7 @@ public class CarList extends ArrayList<Car> {
 	public int searchID(String carID) {
 		int N = this.size();
 		for (int i = 0; i < N; i++) {
-			if (this.get(i).getCarID().equalsIgnoreCase(carID.trim()) ) {
+			if (this.get(i).getCarID().equalsIgnoreCase(carID.trim())) {
 				return i;
 			}
 		}
@@ -262,11 +262,11 @@ public class CarList extends ArrayList<Car> {
 	public void printBasedBrandName() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a brand name to print all element of brand: ");
-		String brand = sc.nextLine().toUpperCase();
+		String brandName = sc.nextLine().toUpperCase();
 		int count = 0;
 		for (int i = 0; i < this.size(); i++) {
-			if (this.get(i).getBrand().getBrandID().contains(brand)) {
-				System.out.println(this.get(i).getCarID() + ", " + this.get(i).getBrand().getBrandID() + ", " + this.get(i).getFrameID() + ", " + this.get(i).getEngineID());
+			if (this.get(i).getBrand().getBrandName().contains(brandName)) {
+				System.out.println(this.get(i).getBrand().getBrandName() + ", " + this.get(i).getCarID() + ", " + this.get(i).getBrand().getBrandID() + ", " + this.get(i).getFrameID() + ", " + this.get(i).getEngineID());
 				count++;
 			}
 		}
