@@ -3,8 +3,7 @@ package CarPrj.Classes.Com;
 /**
  */
 public class Brand {
-
-	private String brandID;
+	private String brandID;	
 	private String brandName;
 	private String soundBrand;
 	private double price;
@@ -55,5 +54,6 @@ public class Brand {
 	public String toString() {
 		return brandID + ", " + brandName + ", " + soundBrand + ": " + price;
 	}
+	
 
 }
