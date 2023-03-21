@@ -70,7 +70,7 @@ public class CarManager {
 					break;
 				case 5: {
 					try {
-						blist.saveToFile("Brands.txt");
+						blist.saveToFile(projectPath + "\\src\\CarPrj\\Brands.txt");
 					} catch (Exception e) {
 					}
 				}
@@ -90,7 +90,7 @@ public class CarManager {
 					clist.updateCar();
 					break;
 				case 11:
-					clist.saveToFile("Cars.txt");
+					clist.saveToFile(projectPath + "\\src\\CarPrj\\Cars.txt");
 					break;
 				default: System.out.println("Bye!"); 
 			}
