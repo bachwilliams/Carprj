@@ -1,22 +1,55 @@
 package CarPrj.Classes.Com;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.*;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class CarList extends ArrayList<Car> {
 
 	BrandList brandList;
 
-	
 	public CarList(BrandList bList) {
 
 	}
 
-	public boolean loadFromFile(String a) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+	public boolean loadFromFile(String filename) throws IOException {
+		FileReader fr = null;
+		File f = new File(filename);
+		if (!f.exists()) {
+			System.out.println("Failed");
+			return false;
+		} else {
+			fr = new FileReader(f);
+			BufferedReader br = new BufferedReader(fr);
+			String line;
+			Path path = Paths.get(filename);
+			while ((line = br.readLine()) != null) {
+				line = line.trim();
+				if (line.length() > 0) {
+					StringTokenizer stk = new StringTokenizer(line, ",");
+					String carID = stk.nextToken().trim();
+					String brandID = stk.nextToken().trim();
+					String color = stk.nextToken().trim();
+					String frameID = stk.nextToken().trim();
+					String engineID = stk.nextToken().trim();
+					int pos = brandList.find(brandID);
+					if (pos != -1) {
+						Brand b = brandList.get(pos);
+						Car newCar = new Car(carID, b, color, frameID, engineID);
+						this.add(newCar);
+					} else {
+						System.out.println("Brand with ID " + brandID + " not found in the list.");
+					}
+				}
+			}
+		}
+		return true;
 	}
 
 	public boolean saveToFile(String a) {
@@ -81,7 +114,7 @@ public class CarList extends ArrayList<Car> {
 		} while (carIDDub);
 		// menu brand
 		System.out.println("Enter new Brand ID: ");
-		b = (Brand)Menu.ret_getChoice(brandList);
+		b = (Brand) Menu.ret_getChoice(brandList);
 		// enter color
 		sc = new Scanner(System.in);
 		System.out.println("Color:");
@@ -135,25 +168,25 @@ public class CarList extends ArrayList<Car> {
 		do {
 			if (eIDDuplicate(engineID)) {
 				System.out.println("frame is blank. Please re-enter");
-			System.out.println("engineID:");
-			sc = new Scanner(System.in);
-			frameID = sc.nextLine();
+				System.out.println("engineID:");
+				sc = new Scanner(System.in);
+				frameID = sc.nextLine();
 
 			} else if (matcher2.matches() == false) {
 				System.out.println("The ID does not match the format. Please re-enter");
-			System.out.println("engineID:");
-			sc = new Scanner(System.in);
-			frameID = sc.nextLine();
+				System.out.println("engineID:");
+				sc = new Scanner(System.in);
+				frameID = sc.nextLine();
 			} else {
 				engineIDisblank = false;
 			}
 		} while (frameIDisblank);
-	
-        Car m = new Car(carID, b, color, frameID, engineID);
 
-        this.add(m);
+		Car m = new Car(carID, b, color, frameID, engineID);
 
-        System.out.println("The new car has been added.");
+		this.add(m);
+
+		System.out.println("The new car has been added.");
 	}
 
 	private boolean fIDDuplicate(String check) {
@@ -197,8 +230,15 @@ public class CarList extends ArrayList<Car> {
 	}
 
 	public void listCars() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+		Collections.sort(this, new Comparator<Car>() {
+			@Override
+			public int compare(Car o1, Car o2) {
+				return o1.getBrand().getBrandName().compareTo(o2.getBrand().getBrandName());
+			}
+		});
+		int N = this.size();
+		for (int i = 0; i < N; i++) {
+			System.out.println(this.get(i).screenString());
+		}
 	}
-
 }

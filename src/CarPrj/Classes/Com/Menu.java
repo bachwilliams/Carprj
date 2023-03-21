@@ -15,6 +15,9 @@ public class Menu {
 		do{
 			System.out.println("Please choose an option (1-" + N +"): ");
 			response = sc.nextInt();
+			if(response == 12){
+				return response;
+			}
 		}while(response < 1 || response > N);
 		return response;
 	}

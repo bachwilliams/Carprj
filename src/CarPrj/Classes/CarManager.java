@@ -23,17 +23,30 @@ public class CarManager {
 		options.add("Add a new brand");
 		options.add("Search a brand based on its ID");
 		options.add("Update a brand");
-		options.add("Save brands to the file, named brands.k");
+		options.add("Save brands to the file, named brands.txt");
 		options.add("List all cars in ascending order of brand names");
 		options.add("List cars based on a part of an input brand name");
 		options.add("Add a car");
 		options.add("Remove a car based on its ID");
 		options.add("Update a car based on its ID");
 		options.add("Save cars to file, named cars.txt");
+		options.add("Exit");
+
+		BrandList blist = new BrandList();
+		try{
+			blist.loadFromFile("D:\\Project-java\\Carprj\\src\\CarPrj\\Brands.txt");
+			System.out.println("Done brand");
+		}catch(Exception e){}
+		CarList clist = new CarList(blist);
+		try {
+			clist.loadFromFile("D:\\Project-java\\Carprj\\src\\CarPrj\\Cars.txt");
+			System.out.println("Done car");
+		} catch (Exception e) {
+			System.out.println("not done car");	
+		}
 
 		int choice = 0;
-		BrandList blist = new BrandList();
-		CarList clist = new CarList(blist);
+		Menu menu = new Menu();
 		do {
 			System.out.println("\nCar managing Program");
 			choice = Menu.int_getChoice(options);
@@ -55,7 +68,7 @@ public class CarManager {
 					break;
 				case 5: {
 					try {
-						blist.saveToFile("\\src\\CarPrjt\\Brands.txt");
+						blist.saveToFile("Brands.txt");
 					} catch (Exception e) {
 					}
 				}
@@ -75,10 +88,10 @@ public class CarManager {
 					clist.updateCar();
 					break;
 				case 11:
-					clist.saveToFile("\\src\\CarPrj\\Cars.txt");
+					clist.saveToFile("Cars.txt");
 					break;
-
+				default: System.out.println("Bye!"); 
 			}
-		} while (choice > 0 && choice < 12);
+		} while (choice > 0  && choice<= 11);
 	}
 }
