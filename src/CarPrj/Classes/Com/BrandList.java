@@ -14,195 +14,208 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BrandList extends ArrayList<Brand> {
-	public BrandList() {
-		super();
-	}
 
-	public boolean loadFromFile(String filename) throws IOException {
+    public BrandList() {
+        super();
+    }
 
-		FileReader fr = null;
+    public boolean loadFromFile(String filename) throws IOException {
 
-		File f = new File(filename);
-		if (!f.exists()) {
-			System.out.println("Failed");
-			return false;
-		} else {
-			fr = new FileReader(f);
-			BufferedReader br = new BufferedReader(fr);
-			String s;
-			while ((s = br.readLine()) != null) {
-				StringTokenizer st = new StringTokenizer(s, ",:");
-				String newID = st.nextToken().toUpperCase();
-				String newbrandname = st.nextToken().toUpperCase();
-				String newsoundbrand = st.nextToken().toUpperCase();
-				double newprice = Double.parseDouble(st.nextToken());
+        FileReader fr = null;
 
-				Brand b = new Brand(newID, newbrandname, newsoundbrand, newprice);
-				this.add(b);
-			}
-			fr.close();
-			br.close();
-		}
-		return true;
-	}
+        File f = new File(filename);
+        if (!f.exists()) {
+            System.out.println("Failed");
+            return false;
+        } else {
+            fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String s;
+            while ((s = br.readLine()) != null) {
+                StringTokenizer st = new StringTokenizer(s, ",:");
+                String newID = st.nextToken().toUpperCase();
+                String newbrandname = st.nextToken().toUpperCase();
+                String newsoundbrand = st.nextToken().toUpperCase();
+                double newprice = Double.parseDouble(st.nextToken());
 
-	public int find(String ID) {
-		for (int i = 0; i < this.size(); i++) {
-			if (this.get(i).getBrandID().equals(ID)) {
-				return i;
-			}
-		}
-		return -1;
-	}
+                Brand b = new Brand(newID, newbrandname, newsoundbrand, newprice);
+                this.add(b);
+            }
+            fr.close();
+            br.close();
+        }
+        return true;
+    }
 
-	public int searchID(String ID) {
-		for (int i = 0; i < this.size(); i++) {
-			if (this.get(i).getBrandID().equalsIgnoreCase(ID.trim())) {
-				return i;
-			}
-		}
-		return -1;
-	}
+    public int find(String ID) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getBrandID().equals(ID)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-	public Brand getUserChoice() {
-		Menu mnu = new Menu();
-		return (Brand) mnu.ret_getChoice(this);
-	}
+    public int searchID(String ID) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getBrandID().equalsIgnoreCase(ID.trim())) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-	public void addBrand() {
-		Scanner sc = new Scanner(System.in);
+    public Brand getUserChoice() {
+        Menu mnu = new Menu();
+        return (Brand) mnu.ret_getChoice(this);
+    }
 
-		String newID;
-		String newBrandname;
-		String newSoundbrand;
-		double price;
-		int checkID;
-		String s;
-		double d;
+    public void addBrand() {
+        Scanner sc = new Scanner(System.in);
 
-		do {
-			System.out.printf("Enter a new brand:");
-			newID = sc.nextLine().toUpperCase();
-			checkID = find(newID);
-			if (checkID >= 0) {
-				System.out.print("Brand ID is duplicated:");
-			}
-		} while (checkID >= 0);
+        String newID;
+        String newBrandname;
+        String newSoundbrand;
+        double price;
+        int checkID;
+        String s;
+        double d;
 
-		do {
-			System.out.print("Enter the brand name:");
-			newBrandname = sc.nextLine().toUpperCase();
-			s = newBrandname;
-			if (s == null) {
-				System.out.print("Error!!");
+        do {
+            System.out.printf("Enter a new brand:");
+            newID = sc.nextLine().toUpperCase();
+            checkID = find(newID);
+            if (checkID >= 0) {
+                System.out.print("Brand ID is duplicated:");
+            }
+        } while (checkID >= 0);
 
-			}
+        do {
+            System.out.print("Enter the brand name:");
+            newBrandname = sc.nextLine().toUpperCase();
+            s = newBrandname;
+            if (s == null) {
+                System.out.print("Error!!");
 
-		} while (s == null);
+            }
 
-		do {
-			System.out.print("Enter the sound manufacturer:");
-			newSoundbrand = sc.nextLine().toUpperCase();
-			s = newSoundbrand;
-			if (s == null) {
-				System.out.print("Error!!");
+        } while (s == null);
 
-			}
+        do {
+            System.out.print("Enter the sound manufacturer:");
+            newSoundbrand = sc.nextLine().toUpperCase();
+            s = newSoundbrand;
+            if (s == null) {
+                System.out.print("Error!!");
 
-		} while (s == null);
+            }
 
-		do {
-			System.out.print("Enter the price:");
-			price = sc.nextDouble();
-			d = price;
-			if (d <= 0) {
-				System.out.printf("Erorr!!!");
+        } while (s == null);
 
-			}
-		} while (d <= 0);
+        do {
+            System.out.print("Enter the price:");
+            price = sc.nextDouble();
+            d = price;
+            if (d <= 0) {
+                System.out.printf("Erorr!!!");
 
-		Brand brand = new Brand(newID, newBrandname, newSoundbrand, price);
-		this.add(brand);
-		System.out.println("New brand is added !");
-	}
+            }
+        } while (d <= 0);
 
-	public void updateBrand() {
-		Scanner scanner = new Scanner(System.in);
-		int k;
-		String id, newbrand, newmanu;
-		double price;
-		System.out.print("Enter the ID you need update the brand:");
-		id = scanner.nextLine().toUpperCase();
-		k = find(id);
-		if (k >= 0) {
-			do {
-				System.out.print("Enter the new brand you want to update:");
-				newbrand = scanner.nextLine().toUpperCase();
-				if (newbrand == null) {
-					System.out.println("Fail!");
-				}
-			} while (newbrand == null);
+        Brand brand = new Brand(newID, newBrandname, newSoundbrand, price);
+        this.add(brand);
+        System.out.println("New brand is added !");
+    }
 
-			do {
-				System.out.print("Enter new sound manufacturer :");
-				newmanu = scanner.nextLine().toUpperCase();
-				if (newmanu == null) {
-					System.out.println("Fail!");
-				}
+    public void updateBrand() {
+        Scanner scanner = new Scanner(System.in);
+        int k;
+        String id, newbrand, newmanu;
+        double price;
+        System.out.print("Enter the ID you need update the brand:");
+        id = scanner.nextLine().toUpperCase();
+        k = find(id);
+        if (k >= 0) {
+            do {
+                System.out.print("Enter the new brand you want to update:");
+                newbrand = scanner.nextLine().toUpperCase();
+                if (newbrand == null) {
+                    System.out.println("Fail!");
+                }
+            } while (newbrand == null);
 
-			} while (newmanu == null);
+            do {
+                System.out.print("Enter new sound manufacturer :");
+                newmanu = scanner.nextLine().toUpperCase();
+                if (newmanu == null) {
+                    System.out.println("Fail!");
+                }
 
-			do {
-				System.out.print("Enter new price :");
-				price = scanner.nextDouble();
-				if (price <= 0) {
-					System.out.println("failed!");
-				}
-			} while (price <= 0);
-			for (int i = 0; i < this.size(); i++) {
-				if (this.get(i).getBrandID().contains(id)) {
-					this.get(i).setBrandName(newbrand);
-					this.get(i).setSoundBrand(newmanu);
-					this.get(i).setPrice(price);
-					System.out.println("Update succesful!");
-				}
-			}
+            } while (newmanu == null);
 
-		} else {
-			System.out.println("The ID does not exist !!!");
-		}
-	}
+            do {
+                System.out.print("Enter new price :");
+                price = scanner.nextDouble();
+                if (price <= 0) {
+                    System.out.println("failed!");
+                }
+            } while (price <= 0);
+            for (int i = 0; i < this.size(); i++) {
+                if (this.get(i).getBrandID().contains(id)) {
+                    this.get(i).setBrandName(newbrand);
+                    this.get(i).setSoundBrand(newmanu);
+                    this.get(i).setPrice(price);
+                    System.out.println("Update succesful!");
+                }
+            }
 
-	public void listBrands() {
-		for (int i = 0; i < this.size(); i++) {
-			System.out.println(this.get(i).getBrandID() + ", " + this.get(i).getBrandName() + ", " + this.get(i).getSoundBrand() + ": " + this.get(i).getPrice());
-		}
-	}
+        } else {
+            System.out.println("The ID does not exist !!!");
+        }
+    }
 
-	public boolean saveToFile(String fname) {
+    public void listBrands() {
+        for (int i = 0; i < this.size(); i++) {
+            System.out.printf("%8s%40s%20s%8s\n", this.get(i).getBrandID(), this.get(i).getBrandName(), this.get(i).getSoundBrand(), this.get(i).getPrice());
+            //System.out.println(this.get(i).getBrandID() + ", " + this.get(i).getBrandName() + ", " + this.get(i).getSoundBrand() + ": " + this.get(i).getPrice());
+        }
+    }
 
-		FileWriter fileWriter = null;
-		boolean c = false;
-		File f = new File(fname);
+    public boolean saveToFile(String fname) {
 
-		try {
-			if (f.isFile() && f.canWrite()) {
-				fileWriter = new FileWriter(f);
-				PrintWriter pw = new PrintWriter(fileWriter);
-				for (int i = 0; i < this.size(); i++) {
-					pw.println(this.get(i).toString());
-				}
-				c = true;
-				System.out.println("Save successfull!");
-				fileWriter.close();
-				pw.close();
+        FileWriter fileWriter = null;
+        boolean c = false;
+        File f = new File(fname);
 
-			}
+        try {
+            if (f.isFile() && f.canWrite()) {
+                fileWriter = new FileWriter(f);
+                PrintWriter pw = new PrintWriter(fileWriter);
+                for (int i = 0; i < this.size(); i++) {
+                    pw.println(this.get(i).toString());
+                }
+                c = true;
+                System.out.println("Save successfull!");
+                fileWriter.close();
+                pw.close();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			c = false;
-		}
-		return c;
-	}
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            c = false;
+        }
+        return c;
+    }
+
+    public void searchID1(String ID) {
+        int k;
+
+        k = find(ID);
+        if (k >= 0) {
+            System.out.print(this.get(k).getBrandID() + ", " + this.get(k).getBrandName() + ", " + this.get(k).getSoundBrand() + ": " + this.get(k).getPrice());
+        } else if (k < 0) {
+            System.out.println("Not Exist!");
+        }
+    }
 }
