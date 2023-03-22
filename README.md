@@ -42,8 +42,4 @@ Open `terminal` or` cmd `or `gitBash` redirect to your code folder then run this
 git clone https://github.com/bachwilliams/Carprj.git
 ```
 ### Running
-You can run on IDE support java or run the project from the command line, go to the dist folder and type the following:  
-```
-java -jar "CarPrj.jar"
-```
-
+You can run on IDE support java 
