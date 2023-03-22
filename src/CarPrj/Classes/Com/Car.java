@@ -72,7 +72,7 @@ public class Car {
     }
 
     public String screenString() {
-        System.out.printf("%6s%9s%9s%9s%9s", carID, brand.getBrandID(), color, frameID, engineID);
+        System.out.printf("%6s%9s%9s%9s%11s", carID, brand.getBrandID(), color, frameID, engineID);
         return "";
     }
 
