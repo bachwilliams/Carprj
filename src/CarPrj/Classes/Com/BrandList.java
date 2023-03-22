@@ -175,6 +175,7 @@ public class BrandList extends ArrayList<Brand> {
     }
 
     public void listBrands() {
+            System.out.printf("%8s%40s%20s%8s\n", "BRAND", "BRAND NAME", "SOUND BRAND", "PRICE");
         for (int i = 0; i < this.size(); i++) {
             System.out.printf("%8s%40s%20s%8s\n", this.get(i).getBrandID(), this.get(i).getBrandName(), this.get(i).getSoundBrand(), this.get(i).getPrice());
             //System.out.println(this.get(i).getBrandID() + ", " + this.get(i).getBrandName() + ", " + this.get(i).getSoundBrand() + ": " + this.get(i).getPrice());
