@@ -1,14 +1,8 @@
 package CarPrj.Classes.Com;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.*;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class CarList extends ArrayList<Car> {
 
@@ -139,23 +133,23 @@ public class CarList extends ArrayList<Car> {
 			if (color.equals("") != true) {
 				break;
 			}
-			System.out.println("The color must not be null. Try again !");
+			System.out.println("The color must not be blank. Try again !");
 		} while (true);
 		do {
 			System.out.print("Input frame ID: ");
 			frameID = scanner.nextLine();
-			if ((frameID.matches("F[0-9][0-9][0-9][0-9][0-9]")) && (searchFrame(frameID) == -1)) {
+			if ((frameID.matches("F\\d{5}")) && (searchFrame(frameID) == -1)) {
 				break;
 			}
-			System.out.println("The frame ID must be in F0000 format and not be duplicated. Try again !");
+			System.out.println("The frame ID must be in F00000 format and not be duplicated. Try again !");
 		} while (true);
 		do {
 			System.out.print("Input engine ID: ");
 			engineID = scanner.nextLine();
-			if ((engineID.matches("E[0-9][0-9][0-9][0-9][0-9]")) && (searchEngine(engineID) == -1)) {
+			if ((engineID.matches("E\\d{5}")) && (searchEngine(engineID) == -1)) {
 				break;
 			}
-			System.out.println("The engine ID must be in E0000 format and not be duplicated. Try again !");
+			System.out.println("The engine ID must be in E00000 format and not be duplicated. Try again !");
 		} while (true);
 		Car m = new Car(carID, brand, color, frameID, engineID);
 		this.add(m);
@@ -216,7 +210,7 @@ public class CarList extends ArrayList<Car> {
 			do {
 				System.out.print("Input frame ID: ");
 				frameID = scanner.nextLine();
-				if ((frameID.matches("F[0-9][0-9][0-9][0-9]")) && (searchFrame(frameID) == -1)) {
+				if ((frameID.matches("F\\d{5}")) && (searchFrame(frameID) == -1)) {
 					break;
 				}
 				System.out.println("The frame ID must be in F0000 format and not be duplicated. Try again !");
@@ -224,10 +218,10 @@ public class CarList extends ArrayList<Car> {
 			do {
 				System.out.print("Input engine ID: ");
 				engineID = scanner.nextLine();
-				if ((engineID.matches("E[0-9][0-9][0-9][0-9]")) && (searchEngine(engineID) == -1)) {
+				if ((engineID.matches("E\\d{5}")) && (searchEngine(engineID) == -1)) {
 					break;
 				}
-				System.out.println("The engine ID must be in E0000 format and not be duplicated. Try again !");
+				System.out.println("The engine ID must be in E00000 format and not be duplicated. Try again !");
 			} while (true);
 			this.get(pos).setUpdatedCar(brand, color, frameID, engineID);
 			return true;

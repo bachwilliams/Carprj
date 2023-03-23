@@ -1,17 +1,7 @@
 package CarPrj.Classes.Com;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.*;
+import java.util.*;
 
 public class BrandList extends ArrayList<Brand> {
 
@@ -82,16 +72,16 @@ public class BrandList extends ArrayList<Brand> {
         double d;
 
         do {
-            System.out.printf("Enter a new brand:");
+            System.out.printf("Enter a new brand: ");
             newID = sc.nextLine().toUpperCase();
             checkID = find(newID);
             if (checkID >= 0) {
-                System.out.print("Brand ID is duplicated:");
+                System.out.print("Brand ID is duplicated: ");
             }
         } while (checkID >= 0);
 
         do {
-            System.out.print("Enter the brand name:");
+            System.out.print("Enter the brand name: ");
             newBrandname = sc.nextLine().toUpperCase();
             s = newBrandname;
             if (s == null) {
@@ -102,7 +92,7 @@ public class BrandList extends ArrayList<Brand> {
         } while (s == null);
 
         do {
-            System.out.print("Enter the sound manufacturer:");
+            System.out.print("Enter the sound manufacturer: ");
             newSoundbrand = sc.nextLine().toUpperCase();
             s = newSoundbrand;
             if (s == null) {
@@ -113,7 +103,7 @@ public class BrandList extends ArrayList<Brand> {
         } while (s == null);
 
         do {
-            System.out.print("Enter the price:");
+            System.out.print("Enter the price: ");
             price = sc.nextDouble();
             d = price;
             if (d <= 0) {
@@ -132,41 +122,44 @@ public class BrandList extends ArrayList<Brand> {
         int k;
         String id, newbrand, newmanu;
         double price;
-        System.out.print("Enter the ID you need update the brand:");
+        System.out.print("Enter the ID you need update the brand: ");
         id = scanner.nextLine().toUpperCase();
         k = find(id);
         if (k >= 0) {
             do {
-                System.out.print("Enter the new brand you want to update:");
+                System.out.print("Enter the new brand you want to update: ");
                 newbrand = scanner.nextLine().toUpperCase();
                 if (newbrand == null) {
-                    System.out.println("Fail!");
+                    System.out.println("The brandID must not be blank.Try again");
                 }
             } while (newbrand == null);
 
             do {
-                System.out.print("Enter new sound manufacturer :");
+                System.out.print("Enter new sound manufacturer : ");
                 newmanu = scanner.nextLine().toUpperCase();
                 if (newmanu == null) {
-                    System.out.println("Fail!");
+                    System.out.println("The sound manufacturer must not be blank. Try again");
                 }
-
             } while (newmanu == null);
 
             do {
-                System.out.print("Enter new price :");
+                System.out.print("Enter new price : ");
                 price = scanner.nextDouble();
                 if (price <= 0) {
-                    System.out.println("failed!");
+                    System.out.println("The price must be a positive number!");
                 }
             } while (price <= 0);
+	    boolean checkUpdate = false;
             for (int i = 0; i < this.size(); i++) {
                 if (this.get(i).getBrandID().contains(id)) {
                     this.get(i).setBrandName(newbrand);
                     this.get(i).setSoundBrand(newmanu);
                     this.get(i).setPrice(price);
-                    System.out.println("Update succesful!");
+		    checkUpdate = true;
                 }
+		if(checkUpdate){
+                    System.out.println("Update succesful!");
+		}
             }
 
         } else {
@@ -209,9 +202,9 @@ public class BrandList extends ArrayList<Brand> {
         return c;
     }
 
+    //bach
     public void searchID1(String ID) {
         int k;
-
         k = find(ID);
         if (k >= 0) {
             System.out.print(this.get(k).getBrandID() + ", " + this.get(k).getBrandName() + ", " + this.get(k).getSoundBrand() + ": " + this.get(k).getPrice());
