@@ -1,15 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package CarPrj.Classes;
 
-import CarPrj.Classes.Com.Brand;
-import CarPrj.Classes.Com.BrandList;
-import CarPrj.Classes.Com.Car;
-import CarPrj.Classes.Com.CarList;
-import CarPrj.Classes.Com.Menu;
+import CarPrj.Classes.Com.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,10 +25,10 @@ public class CarManager {
 		options.add("Exit");
 
 		BrandList blist = new BrandList();
-		String projectPath = System.getProperty("user.dir");            // cau lenh trich xuat duong dan cua project 
-		blist.loadFromFile(projectPath + "\\src\\CarPrj\\Brands.txt"); // dong lenh nay de doc file Brand.txt va ghi ra mang ArrayList<Brand>
-		CarList clist = new CarList(blist);                            // de truyen thong tin mang brandList vao Carlist 
-		clist.loadFromFile(projectPath + "\\src\\CarPrj\\Cars.txt");  // dong lenh nay de doc file Brand.txt va ghi ra mang ArrayList<Brand>
+		String projectPath = System.getProperty("user.dir");             
+		blist.loadFromFile(projectPath + "\\src\\CarPrj\\Brands.txt"); 
+		CarList clist = new CarList(blist);                            
+		clist.loadFromFile(projectPath + "\\src\\CarPrj\\Cars.txt");  
 
 		int choice = 0;
 		do {
